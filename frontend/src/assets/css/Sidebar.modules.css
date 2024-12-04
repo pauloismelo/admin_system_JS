@@ -1,0 +1,50 @@
+/* Sidebar.css */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px; /* Largura da sidebar */
+    height: 100%; /* Altura total da tela */
+    background-color: #333; /* Cor de fundo */
+    color: white;
+    padding-top: 20px;
+    padding-left: 20px;
+  }
+  
+  .sidebar h2 {
+    font-size: 24px;
+    color: white;
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .sidebar ul li {
+    margin: 20px 0;
+  }
+  
+  .sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+  }
+
+  .sidebar ul li #logout{
+    color: red;
+   }
+  
+  .sidebar ul li a:hover {
+    color: #4CAF50; /* Cor de destaque quando passar o mouse */
+  }
+  
+  /* Estilizando o conteúdo principal */
+  .content {
+    margin-left: 270px; /* Espaço para a sidebar */
+    padding: 20px;
+  }
+  
+  .app {
+    display: flex;
+  }
