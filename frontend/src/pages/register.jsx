@@ -1,4 +1,5 @@
 import axios from 'axios';
+import styles from '../assets/css/Register.modules.css'
 import Botton from '../components/Botton';
 import Input from '../components/Input';
 

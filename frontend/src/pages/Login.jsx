@@ -50,15 +50,9 @@ function Login() {
     
     return ( 
         <>
-<<<<<<< HEAD
-        <header className='bg-gray-950'></header>
+        <header></header>
         <main>
-            <div className="bg-slate-950 h-10">
-=======
-        <header className='h-10 bg-cyan-950'>&nbsp;</header>
-        <main>
-            <div className='mt-5'>
->>>>>>> a37b2a3 (install tailwind)
+            <div>
                 <form onSubmit={handleSubmit}>
                     {message ? <Message type={message.type} msg={message.msg}/> : ''}
                     <h2>Log In</h2>
