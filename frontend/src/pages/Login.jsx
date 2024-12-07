@@ -50,9 +50,9 @@ function Login() {
     
     return ( 
         <>
-        <header></header>
+        <header className='bg-gray-950'></header>
         <main>
-            <div className="login">
+            <div className="bg-slate-950 h-10">
                 <form onSubmit={handleSubmit}>
                     {message ? <Message type={message.type} msg={message.msg}/> : ''}
                     <h2>Log In</h2>
