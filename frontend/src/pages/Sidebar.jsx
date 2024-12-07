@@ -17,7 +17,7 @@ function Sidebar() {
             <ul>
                 <li><NavLink to="/dashboard">Home</NavLink></li>
                 <li><NavLink to="">Users</NavLink></li>
-                <li><NavLink to="">Categories</NavLink></li>
+                <li><NavLink to="/dashboard/categoryadd">Categories</NavLink></li>
                 <li><NavLink to="">Articles</NavLink></li>
                 <li className="logout"><NavLink onClick={handleLogout} className="logout">Logout</NavLink></li>
                 

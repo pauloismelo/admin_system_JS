@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import PrivateRoute from './Routes/PrivateRoutes';
 
 import { AuthProvider } from './Context/AuthContext';
+import CategoryAdd from './pages/CategoryAdd';
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
             <Dashboard/>
           </PrivateRoute>
           }>
-            
+            <Route path='/dashboard/categoryadd' element={<PrivateRoute><CategoryAdd/></PrivateRoute>}/>
         </Route>
 
       </Routes>
