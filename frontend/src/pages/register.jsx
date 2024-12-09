@@ -43,21 +43,21 @@ function Register() {
     }
     console.log('Msg: ',message)
     return ( 
-        <>
-        <header></header>
-        <main>
+        <div className='max-h-full'>
+            <div className='h-20 bg-slate-800'></div>
+            <main className='text-center align-middle h-80'>
             <div className="login">
                 <form onSubmit={handleSubmit}>
                     {message ? <Message type={message.type} msg={message.msg}/> : ''}
-                    <h2>New User</h2>
+                    <h1 className='text-slate-800'>New User</h1>
                     <Input type="text" name="name" title="Login" handleOnChange={handleOnChange}/>
                     <Input type="password" name="password" title="Password" handleOnChange={handleOnChange}/>
                     <Botton type="submit" type2="danger" value="REGISTER"/>
                 </form>
             </div>
         </main>
-        <footer></footer>
-        </>
+        <div className='h-20 bg-slate-800'></div>
+        </div>
      );
 }
 

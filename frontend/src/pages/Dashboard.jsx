@@ -1,5 +1,4 @@
 import { NavLink, Outlet } from "react-router-dom";
-import styles from '../assets/css/Dashboard.modules.css'
 
 import { useContext } from "react";
 import { AuthContext } from '../Context/AuthContext';
@@ -15,12 +14,12 @@ function Dashboard() {
 
     return ( 
         <>
-        <header>
-            <ul>
-                <li>
+        <header className="h-10 bg-slate-800 text-white justify-items-end">
+            <ul className="grid grid-cols-2 text-right">
+                <li className="mr-3 mt-2 mb-2">
                     <NavLink to="/dashboard">Home</NavLink>
                 </li>
-                <li>
+                <li className="mr-3 mt-2 mb-2">
                     <NavLink onClick={handleLogout}>Logout</NavLink>
                 </li>
             </ul>
@@ -29,7 +28,7 @@ function Dashboard() {
             
         </header>
         <Sidebar/>
-        <main>
+        <main className="ml-56 grow">
             <Outlet/>
         </main>
         <footer></footer>
