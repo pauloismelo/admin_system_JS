@@ -13,8 +13,6 @@ function CategoryAdd() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-
-
         axios.post(apiUrl+`/categoryadd`, data)
         .then((result) =>{
             
@@ -26,7 +24,7 @@ function CategoryAdd() {
 
 
     return ( <>
-    <FormCategories title={`Add Category`} handleOnChange={handleOnChange} handleOnSubmit={handleOnSubmit} options={options}/>
+    <FormCategories title={`New Category`} handleOnChange={handleOnChange} handleOnSubmit={handleOnSubmit} options={options}/>
     </> );
 }
 

@@ -28,7 +28,7 @@ function Dashboard() {
             
         </header>
         <Sidebar/>
-        <main className="ml-56 grow">
+        <main className="ml-56 grow p-4">
             <Outlet/>
         </main>
         <footer></footer>
