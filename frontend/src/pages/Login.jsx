@@ -49,21 +49,21 @@ function Login() {
     }
     
     return ( 
-        <>
-        <header></header>
-        <main>
-            <div>
-                <form onSubmit={handleSubmit}>
-                    {message ? <Message type={message.type} msg={message.msg}/> : ''}
-                    <h2>Log In</h2>
-                    <Input type="text" name="name" title="Login" handleOnChange={handleOnChange}/>
-                    <Input type="password" name="password" title="Password" handleOnChange={handleOnChange}/>
-                    <Botton type="submit" type2="danger" value="LOG IN"/>
-                </form>
-            </div>
-        </main>
-        <footer></footer>
-        </>
+        <div className='max-h-full'>
+            <div className='h-20 bg-slate-800'></div>
+            <main className='text-center align-middle h-80'>
+                <div className='mt-10 mb-10 ml-80 mr-80 border-2 p-10'>
+                    <form onSubmit={handleSubmit}>
+                        {message ? <Message type={message.type} msg={message.msg}/> : ''}
+                        <h2 className=''>Log In</h2>
+                        <Input type="text" name="name" title="Login" handleOnChange={handleOnChange}/>
+                        <Input type="password" name="password" title="Password" handleOnChange={handleOnChange}/>
+                        <Botton type="submit" type2="danger" value="LOG IN"/>
+                    </form>
+                </div>
+            </main>
+            <div className='h-20 bg-slate-800'></div>
+        </div>
      );
 }
 
