@@ -5,7 +5,7 @@ function Message({type, msg}) {
     
 
     return ( 
-        <div className={`text-white ${backcolor} rounded-md p-2 m-1`}>{msg}</div>
+        <div className={`text-white ${backcolor} rounded-md p-2 m-1 text-center m-10`}>{msg}</div>
      );
 }
 

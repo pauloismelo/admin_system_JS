@@ -6,8 +6,11 @@ import Dashboard from './pages/Dashboard';
 import PrivateRoute from './Routes/PrivateRoutes';
 
 import { AuthProvider } from './Context/AuthContext';
-import CategoryAdd from './pages/CategoryAdd';
-import Category from './pages/Category';
+
+import Category from './pages/category/Category';
+import CategoryAdd from './pages/category/Add';
+import CategoryList from './pages/category/List';
+import CategoryEdit from './pages/category/Edit';
 
 
 function App() {
@@ -28,6 +31,8 @@ function App() {
           }>
             <Route path='/dashboard/category' element={<PrivateRoute><Category/></PrivateRoute>}>
               <Route path='/dashboard/category/add' element={<PrivateRoute><CategoryAdd/></PrivateRoute>}/>
+              <Route path='/dashboard/category/list' element={<PrivateRoute><CategoryList/></PrivateRoute>}/>
+              <Route path='/dashboard/category/edit/:id' element={<PrivateRoute><CategoryEdit/></PrivateRoute>}/>
             </Route>
             
         </Route>

@@ -1,10 +1,15 @@
 const mysql = require("mysql2")
+const db = require('./db/connection.js');
+
 const cors = require("cors");
 
 const express = require ("express");
 const app = express();
 
 require('dotenv').config()
+
+const category = require('./Routes/Category');
+const user = require('./Routes/User');
 
 
 const jwt = require("jsonwebtoken")
@@ -16,18 +21,16 @@ const SECRET = process.env.JWT_SECRET // essa variavel está no env
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-
-
-const db = mysql.createPool({
-    host:"localhost",
-    user:"root",
-    password:"admin123",
-    database:"js_admin"
-});
-
 app.use(cors());
 app.use(express.json());
 
+app.use('/category', category);
+//app.use('/user', user);
+
+
+
+
+//routes from register and login keeping in innitial code
 app.post('/register', (req,res) =>{
     const {name, password} = req.body;
     const datereg = new Date;
@@ -37,7 +40,7 @@ app.post('/register', (req,res) =>{
         if (error){
             console.log(error)
         }else if (result[0]){
-            res.send({msg: "Usuario encontrado em nossa base de dados. Digite outro login", type :'error'})
+            res.send({msg: "User found in our database. try again", type :'error'})
         }else{
             bcrypt.hash(password, saltRounds, function(err, hash) {
                 let sql = "insert into TB_USERS (name, password, datereg) values (?,?,?)";
@@ -45,7 +48,7 @@ app.post('/register', (req,res) =>{
                     if (err){
                         console.log(err)
                     }else{
-                        res.send({msg: "Usuario cadastrado com sucesso!", type: 'success'})
+                        res.send({msg: "User register susccessful!", type: 'success'})
                     }
                 });
             });
