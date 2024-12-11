@@ -72,6 +72,19 @@ router.put("/:id", (req,res) =>{
     })
 });
 
+router.put("/status/:id/:status", (req,res) =>{
+    const {id,status} = req.params;
+    newStatus = status==='ATIVO' ? 'INATIVO' : 'ATIVO'
+
+    db.query('update tb_category  set status=? where id=?', [ newStatus, id], (err,result)=>{
+        if (err) {
+            res.status(500).json({msg: 'Error in update category`s status '});
+        }else{
+            res.send({msg: "Category`s status updated susccessful!", type: 'success'})
+        }
+    })
+});
+
 
 module.exports = router;
 
