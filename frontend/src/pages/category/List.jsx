@@ -6,6 +6,7 @@ import Message from "../../components/Message";
 
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Botton from "../../components/Botton";
 
 function List() {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -38,9 +39,20 @@ function List() {
         .catch(e=>console.log(e))
     }
 
-    console.log('data: ',data)
+    const ChangeStatus = (id, status) => {
+        axios.put(apiUrl+`/category/status/${id}/${status}`)
+        .then((result) => {
+            const newStatus = status==='ATIVO' ? 'INATIVO' : 'ATIVO'
+            const new_data = data.map((value)=>
+            value.id===id ? {...value, status : newStatus }: value)
+
+            setData(new_data)
+
+        })
+        .catch(e=>console.log(e))
+    }
+   
     return ( 
-        
     <>
     {message ? (<Message type={message.type} msg={message.msg}/>) : ''}
     <table className="w-full">
@@ -57,14 +69,21 @@ function List() {
             ( data.map((value)=>(
                 <tr key={value.id}>
                     <td className="text-left">{value.name}</td>
-                    <td className="text-center">{value.status}</td>
                     <td className="text-center">
-                        <Link to={`/dashboard/category/edit/${value.id}`}>
-                            <FaEdit></FaEdit>
+                        <Link onClick={()=> {ChangeStatus(value.id, value.status)}}>
+                        <Botton type={`button`} type2={value.status=='ATIVO' ? 'success' : 'error'} value={value.status} />
                         </Link>
                     </td>
-                    <td className="text-center">
-                        <FaTrash className="cursor-pointer" onClick={()=> {DeleteReg(value.id)}}></FaTrash>
+                    <td>
+                        
+                        <Link to={`/dashboard/category/edit/${value.id}`} className="inline-flex items-center justify-center w-full h-full cursor-pointer">
+                            <FaEdit className="text-green-600"></FaEdit>
+                        </Link>
+                       
+                        
+                    </td>
+                    <td className="inline-flex items-center justify-center w-full h-full">
+                        <FaTrash className="cursor-pointer text-red-600" onClick={()=> {DeleteReg(value.id)}}></FaTrash>
                     </td>
                 </tr>
             ))

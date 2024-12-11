@@ -13,8 +13,8 @@ function FormCategories({title, handleOnChange, handleOnSubmit, options, data}) 
         <div className='text-center mt-8'>
             <form onSubmit={handleOnSubmit} >
                 <Input type={`text`} name={`name`} title={'Name'} placeholder={`Insert the category's name`} handleOnChange={handleOnChange ? handleOnChange : ''} valueprops={data ? data.name : ''} />
-                <Select title={`Status`} name={`status`} handleOnChange={handleOnChange ? handleOnChange : ''} options={options} valueprops={data.status}/>
-                <Botton type={`submit`} type2={`danger`} value={`Edit Category`}/>
+                <Select title={`Status`} name={`status`} handleOnChange={handleOnChange ? handleOnChange : ''} options={options} valueprops={data ? data.status : ''}/>
+                <Botton type={`submit`} type2={`success`} value={`Edit Category`}/>
             </form>
         </div>
         

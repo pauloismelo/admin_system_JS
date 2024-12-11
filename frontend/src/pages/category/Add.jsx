@@ -42,7 +42,7 @@ function CategoryAdd() {
     return ( 
     <>
         {message ? (<Message type={message.type} msg={message.msg}/>) : ''}
-        <FormCategories title={`New Category`} handleOnChange={handleOnChange} handleOnSubmit={handleOnSubmit} options={options}/>
+        <FormCategories title={`New Category`} handleOnChange={handleOnChange} handleOnSubmit={handleOnSubmit} options={options} data={data}/>
     </> );
 }
 
