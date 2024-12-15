@@ -40,7 +40,7 @@ function Login() {
                     navigate('/dashboard')
                 }
                 
-            },5000);
+            },3000);
             
             
         })

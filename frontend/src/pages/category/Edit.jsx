@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import Message from "../../components/Message";
-import FormCategories from "../../components/FormCategories";
+import FormCategories from "../../components/Forms/FormCategories";
 import { useParams, useNavigate } from "react-router-dom";
 
 function Edit() {

@@ -1,6 +1,6 @@
-import Input from './Input'
-import Select from './Select'
-import Botton from './Botton'
+import Input from '../Input'
+import Select from '../Select'
+import Botton from '../Botton'
 
 function FormCategories({title, handleOnChange, handleOnSubmit, options, data}) {
     

@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
-import FormCategories from "../../components/FormCategories";
+import FormCategories from "../../components/Forms/FormCategories";
 import Message from '../../components/Message';
 import axios from 'axios';
 

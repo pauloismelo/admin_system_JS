@@ -12,6 +12,10 @@ import CategoryAdd from './pages/category/Add';
 import CategoryList from './pages/category/List';
 import CategoryEdit from './pages/category/Edit';
 
+import Article from './pages/articles/Article';
+import ArticleList from './pages/articles/List';
+import ArticleAdd from './pages/articles/Add';
+
 
 function App() {
 
@@ -33,6 +37,11 @@ function App() {
               <Route path='/dashboard/category/add' element={<PrivateRoute><CategoryAdd/></PrivateRoute>}/>
               <Route path='/dashboard/category/list' element={<PrivateRoute><CategoryList/></PrivateRoute>}/>
               <Route path='/dashboard/category/edit/:id' element={<PrivateRoute><CategoryEdit/></PrivateRoute>}/>
+            </Route>
+
+            <Route path='/dashboard/article' element={<PrivateRoute><Article/></PrivateRoute>}>
+              <Route path='/dashboard/article/list' element={<PrivateRoute><ArticleList/></PrivateRoute>}/>
+              <Route path='/dashboard/article/add' element={<PrivateRoute><ArticleAdd/></PrivateRoute>}/>
             </Route>
             
         </Route>
