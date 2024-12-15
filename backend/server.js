@@ -6,10 +6,14 @@ const cors = require("cors");
 const express = require ("express");
 const app = express();
 
+const path = require('path');
 require('dotenv').config()
 
 const category = require('./Routes/Category');
 const user = require('./Routes/User');
+const articles = require('./Routes/Articles.js');
+const helpAI = require('./Routes/helpAi.js');
+
 
 
 const jwt = require("jsonwebtoken")
@@ -24,7 +28,12 @@ const saltRounds = 10;
 app.use(cors());
 app.use(express.json());
 
+// Configuração para servir arquivos estáticos (imagens) - quando você acessar http://localhost:3001/uploads/algum_arquivo.png, o Express vai procurar o arquivo na pasta ./uploads e servir a imagem.
+app.use('/uploads', express.static(path.join(__dirname, './uploads')));
+
 app.use('/category', category);
+app.use('/articles', articles);
+app.use('/helpAi', helpAI);
 //app.use('/user', user);
 
 
