@@ -59,7 +59,7 @@ function List() {
                     <td className="text-left">{value.title}</td>
                     <td className="text-center">{value.status}</td>
                     <td>
-                        <Link to={`/dashboard/articles/edit/${value.id}`} className="inline-flex items-center justify-center w-full h-full cursor-pointer">
+                        <Link to={`/dashboard/article/edit/${value.id}`} className="inline-flex items-center justify-center w-full h-full cursor-pointer">
                             <FaEdit className="text-green-600"></FaEdit>
                         </Link>
                     </td>

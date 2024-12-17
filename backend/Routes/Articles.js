@@ -44,7 +44,6 @@ router.post('/upload', upload.single('file'), (req, res) => {
 router.delete('/upload', (req,res)=>{
   const {image} = req.body;
   const imagePath = path.join(__dirname, '../uploads', image);
-
   fs.unlink(imagePath, (err) =>{
     if (err){
       return res.status(500).json({ type: 'error', msg: 'Error in delete file', details: err });
@@ -77,12 +76,47 @@ router.post('/add', (req,res)=>{
 })
 
 router.get(`/list`, (req,res)=>{
-
   db.query(`select * from TB_ARTICLES order by id desc` , (error, result)=>{
     if (error){
       return res.status(500).json({ type: 'error', msg: 'Error in get articles', details: error });
     }else{
       res.status(200).json({type: 'success', msg: 'Article inserted succesfull', result: result});
+    }
+  })
+})
+
+router.delete(`/:id`, (req,res)=>{
+  const {id} = req.params;
+
+  db.query(`delete from TB_ARTICLES where id=?`, [id], (error, result)=>{
+    if (error){
+      return res.status(500).json({ type: 'error', msg: 'Error in delete article', details: error });
+    }else{
+      res.status(200).json({type: 'success', msg: 'Article deleted succesfull', result: result});
+    }
+  })
+})
+
+router.get(`/:id`, (req,res)=>{
+  const {id} = req.params;
+  db.query(`select * from TB_ARTICLES where id=?`, [id] , (error, result)=>{
+    if (error){
+      return res.status(500).json({ type: 'error', msg: 'Error in get specific article', details: error });
+    }else{
+      res.status(200).json(result);
+    }
+  })
+})
+
+router.put(`/`, (req,res)=>{
+
+  const {id, title, resume, text, nameFile, status} = req.body;
+
+  db.query(`update TB_ARTICLES  set title=?, resume=?, text=?, file=?, status=? where id=?`, [title, resume, text, nameFile, status, id] , (error, result)=>{
+    if (error){
+      return res.status(500).json({ type: 'error', msg: 'Error in update article', details: error });
+    }else{
+      res.send({msg: "Article updated susccessful!", type: 'success'})
     }
   })
 })

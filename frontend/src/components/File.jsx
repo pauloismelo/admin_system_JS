@@ -9,10 +9,12 @@ function File({title, name, state}) {
     const apiUrl = process.env.REACT_APP_API_URL;
     const [message, setMessage] = useState();
     const [archive, setArchive] = useState();
+
     
     //function to delete file
     const handleDelete = async (imageName) =>{
        const image = imageName.replace('uploads/','');
+       console.log(image)
         try{
             const response = await axios.delete(apiUrl+`/articles/upload`, {
                 data: {image}
@@ -75,6 +77,7 @@ function File({title, name, state}) {
             const nameFile = response.data.file.filename;
             //save this filename in state
             state((prevData)=>({...prevData, nameFile}))
+            
             //get the path+name to save in state and show to user below the Drag&Drop
             setArchive(response.data.file.path)
             setTimeout(()=>{
@@ -105,41 +108,48 @@ function File({title, name, state}) {
             'image/jpeg': ['.jpeg'],
           },
     });
+
+
     
     return ( 
         <div className="text-left">
             <label className="block text-sm font-medium text-gray-700">{title}</label>
-            {archive ?
-                (
-                    <div className="text-center max-w-28">
-                        <div>
-                            <img src={`http://localhost:3001/${archive}`} />
-                        </div>
-                        <div className="inline-flex items-center justify-center w-full h-full">
-                            <FaTrash onClick={() => {handleDelete(archive)}} className="text-red-600 cursor-pointer" alt="Delete file"/>
-                        </div>
-                    
+            
+            
+            {
+            archive ?
+            (
+                <div className="text-center max-w-28">
+                    <div>
+                        <img alt="Article's" src={`http://localhost:3001/${archive}`} />
+                    </div>
+                    <div className="inline-flex items-center justify-center w-full h-full">
+                        <FaTrash onClick={() => {handleDelete(archive)}} className="text-red-600 cursor-pointer" alt="Delete file"/>
+                    </div>
+                
                     <input type="hidden" name={name} value={archive} />
-                    </div>
-                )
-                :
-                (
-                    /* Área Drag and Drop */
-                    <div
-                        {...getRootProps()}
-                        style={{
-                        border: '2px dashed #007bff',
-                        borderRadius: '8px',
-                        padding: '20px',
-                        textAlign: 'center',
-                        cursor: 'pointer',
-                        }}
-                        
-                    >
-                        <input {...getInputProps()} name={name} />
-                        <p>Arraste e solte um arquivo aqui ou clique para selecionar</p>
-                    </div>
-                )
+                </div>
+            )
+            :
+            (
+                /* Área Drag and Drop */
+                <div
+                    {...getRootProps()}
+                    style={{
+                    border: '2px dashed #007bff',
+                    borderRadius: '8px',
+                    padding: '20px',
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                    }}
+                    
+                >
+                    <input {...getInputProps()} name={name} />
+                    <p>Arraste e solte um arquivo aqui ou clique para selecionar</p>
+                </div>
+            )
+            
+            
             }
                 
             {message ? (<Message type={message.type} msg={message.msg}/>) : ''}

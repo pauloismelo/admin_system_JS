@@ -15,6 +15,7 @@ import CategoryEdit from './pages/category/Edit';
 import Article from './pages/articles/Article';
 import ArticleList from './pages/articles/List';
 import ArticleAdd from './pages/articles/Add';
+import ArticleEdit from './pages/articles/Edit';
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
             <Route path='/dashboard/article' element={<PrivateRoute><Article/></PrivateRoute>}>
               <Route path='/dashboard/article/list' element={<PrivateRoute><ArticleList/></PrivateRoute>}/>
               <Route path='/dashboard/article/add' element={<PrivateRoute><ArticleAdd/></PrivateRoute>}/>
+              <Route path='/dashboard/article/edit/:id' element={<PrivateRoute><ArticleEdit/></PrivateRoute>}/>
             </Route>
             
         </Route>
