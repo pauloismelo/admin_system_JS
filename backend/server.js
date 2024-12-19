@@ -20,10 +20,9 @@ const jwt = require("jsonwebtoken")
 const SECRET = process.env.JWT_SECRET // essa variavel está no env
 
 
-
 //parte de criptografia de senha. So irei utilizar, caso fizer a tela de cadastro
 const bcrypt = require("bcrypt");
-const saltRounds = 10;
+const SALT_ROUND = 10
 
 app.use(cors());
 app.use(express.json());
@@ -34,7 +33,7 @@ app.use('/uploads', express.static(path.join(__dirname, './uploads')));
 app.use('/category', category);
 app.use('/articles', articles);
 app.use('/helpAi', helpAI);
-//app.use('/user', user);
+app.use('/user', user);
 
 
 
@@ -51,7 +50,7 @@ app.post('/register', (req,res) =>{
         }else if (result[0]){
             res.send({msg: "User found in our database. try again", type :'error'})
         }else{
-            bcrypt.hash(password, saltRounds, function(err, hash) {
+            bcrypt.hash(password, SALT_ROUND, function(err, hash) {
                 let sql = "insert into TB_USERS (name, password, datereg) values (?,?,?)";
                 db.query(sql, [name, hash, datereg], (err, result) => {
                     if (err){

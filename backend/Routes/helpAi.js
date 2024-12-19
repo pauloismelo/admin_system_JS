@@ -8,8 +8,10 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_KEY // This is also the default, can be omitted
 });
 
+
 router.post(`/help`, async (req,res)=>{
     const {title} = req.body;
+    console.log('teste: ', title)
 
     try{
         const completion = await openai.chat.completions.create({
