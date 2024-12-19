@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import FormArticles from "../../components/Forms/FormArticles";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -8,16 +8,9 @@ function Add() {
     const [data, setData] = useState();
     const [message, setMessage] = useState();
     const [buttonAI, setbuttonAI] = useState();
-    
-
     const navigate = useNavigate();
 
     const apiUrl = process.env.REACT_APP_API_URL;
-
-    useEffect(()=>{
-        //const token = localStorage.getItem('authToken');
-        //setData({...data, token: token});
-    },[])
 
     const handleOnChange = (e) => {
         setData({...data, [e.target.name]:e.target.value})
@@ -49,7 +42,7 @@ function Add() {
     const handleOnSubmit = async (e) => {
         e.preventDefault();
 
-        const token = localStorage.getItem('authToken');
+        const token = localStorage.getItem('authToken'); //user token
         const response = await axios.post(apiUrl+`/articles/add`, data, {
             headers: {
                 'Content-Type': 'application/json',  // Definindo que estamos enviando JSON

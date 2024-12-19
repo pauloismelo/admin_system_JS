@@ -7,6 +7,8 @@ import Message from "../../components/Message";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+import {americanDate} from '../utils/utils'
+
 function List() {
     const apiUrl = process.env.REACT_APP_API_URL;
     const [data, setData] = useState([]);
@@ -14,16 +16,16 @@ function List() {
 
 
     useEffect(()=>{
-        axios.get(apiUrl+'/articles/list')
+        axios.get(apiUrl+'/user/list')
         .then((result)=>{
-            setData(result.data.result);
+            setData(result.data);
             }
         )
         .catch((e)=>console.log(e))
     },[])
 
     const DeleteReg = (id)=>{
-        axios.delete(apiUrl+`/articles/${id}`)
+        axios.delete(apiUrl+`/user/${id}`)
         .then((result)=>{
             setMessage({
                 type:result.data.type,
@@ -45,20 +47,20 @@ function List() {
     <table className="w-full">
         <thead>
             <tr>
-                <th className="text-left">Title</th>
-                <th className="text-center">Status</th>
+                <th className="text-left">Name</th>
+                <th className="text-center">Register</th>
                 <th className="text-center">Edit</th>
                 <th className="text-center">Delete</th>
             </tr>
         </thead>
         <tbody>
-            {data.length>0 ?
+            {data ?
             ( data.map((value)=>(
                 <tr key={value.id}>
-                    <td className="text-left">{value.title}</td>
-                    <td className="text-center">{value.status}</td>
+                    <td className="text-left">{value.name}</td>
+                    <td className="text-center">{americanDate(value.datereg)}</td>
                     <td>
-                        <Link to={`/dashboard/article/edit/${value.id}`} className="inline-flex items-center justify-center w-full h-full cursor-pointer">
+                        <Link to={`/dashboard/user/edit/${value.id}`} className="inline-flex items-center justify-center w-full h-full cursor-pointer">
                             <FaEdit className="text-green-600"></FaEdit>
                         </Link>
                     </td>
@@ -72,7 +74,7 @@ function List() {
             :
             (
                 <tr>
-                    <td colSpan="4" className="text-center text-red-800">Categories not found</td>
+                    <td colSpan="4" className="text-center text-red-800">Users not found</td>
                 </tr>
             )
             }

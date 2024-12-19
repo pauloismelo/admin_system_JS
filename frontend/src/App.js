@@ -16,6 +16,10 @@ import Article from './pages/articles/Article';
 import ArticleList from './pages/articles/List';
 import ArticleAdd from './pages/articles/Add';
 import ArticleEdit from './pages/articles/Edit';
+import User from './pages/users/User';
+import UserList from './pages/users/List';
+import UserAdd from './pages/users/Add';
+import UserEdit from './pages/users/Edit';
 
 
 function App() {
@@ -44,6 +48,12 @@ function App() {
               <Route path='/dashboard/article/list' element={<PrivateRoute><ArticleList/></PrivateRoute>}/>
               <Route path='/dashboard/article/add' element={<PrivateRoute><ArticleAdd/></PrivateRoute>}/>
               <Route path='/dashboard/article/edit/:id' element={<PrivateRoute><ArticleEdit/></PrivateRoute>}/>
+            </Route>
+
+            <Route path='/dashboard/user' element={<PrivateRoute><User/></PrivateRoute>}>
+              <Route path='/dashboard/user/list' element={<PrivateRoute><UserList/></PrivateRoute>}/>
+              <Route path='/dashboard/user/add' element={<PrivateRoute><UserAdd/></PrivateRoute>}/>
+              <Route path='/dashboard/user/edit/:id' element={<PrivateRoute><UserEdit/></PrivateRoute>}/>
             </Route>
             
         </Route>
