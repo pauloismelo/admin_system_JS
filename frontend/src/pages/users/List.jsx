@@ -7,7 +7,7 @@ import Message from "../../components/Message";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-import {americanDate} from '../utils/utils'
+import {americanDate} from '../../utils/utils'
 
 function List() {
     const apiUrl = process.env.REACT_APP_API_URL;

@@ -14,7 +14,7 @@ function Dashboard() {
 
     return ( 
         <>
-        <header className="h-10 bg-slate-800 text-white justify-items-end">
+        <header className="h-10 w-full bg-slate-800 text-white fixed justify-items-end">
             <ul className="grid grid-cols-2 text-right">
                 <li className="mr-3 mt-2 mb-2">
                     <NavLink to="/dashboard">Home</NavLink>
@@ -24,12 +24,11 @@ function Dashboard() {
                 </li>
             </ul>
             
-            
-            
         </header>
         <Sidebar/>
-        <main className="ml-56 grow p-4">
+        <main className="grow pl-52 pt-12">
             <Outlet/>
+            
         </main>
         <footer></footer>
         </>

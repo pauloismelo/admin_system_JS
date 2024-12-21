@@ -20,6 +20,7 @@ import User from './pages/users/User';
 import UserList from './pages/users/List';
 import UserAdd from './pages/users/Add';
 import UserEdit from './pages/users/Edit';
+import Home from './pages/Home';
 
 
 function App() {
@@ -38,6 +39,8 @@ function App() {
             <Dashboard/>
           </PrivateRoute>
           }>
+            <Route path='/dashboard/home' element={<PrivateRoute><Home/></PrivateRoute>}/>
+
             <Route path='/dashboard/category' element={<PrivateRoute><Category/></PrivateRoute>}>
               <Route path='/dashboard/category/add' element={<PrivateRoute><CategoryAdd/></PrivateRoute>}/>
               <Route path='/dashboard/category/list' element={<PrivateRoute><CategoryList/></PrivateRoute>}/>
