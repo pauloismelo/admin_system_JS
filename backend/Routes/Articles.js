@@ -83,6 +83,7 @@ router.get(`/list`, (req,res)=>{
       res.status(200).json({type: 'success', msg: 'Article inserted succesfull', result: result});
     }
   })
+
 })
 
 router.delete(`/:id`, (req,res)=>{

@@ -14,6 +14,7 @@ const user = require('./Routes/User');
 const articles = require('./Routes/Articles.js');
 const helpAI = require('./Routes/helpAi.js');
 
+  
 
 
 const jwt = require("jsonwebtoken")
@@ -21,7 +22,7 @@ const SECRET = process.env.JWT_SECRET // essa variavel está no env
 
 
 //parte de criptografia de senha. So irei utilizar, caso fizer a tela de cadastro
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const SALT_ROUND = 10
 
 app.use(cors());
@@ -36,7 +37,9 @@ app.use('/helpAi', helpAI);
 app.use('/user', user);
 
 
-
+app.get('/hello', (req,res)=>{
+    res.status(200).json({msg: 'retornou'})
+})
 
 //routes from register and login keeping in innitial code
 app.post('/register', (req,res) =>{
@@ -91,7 +94,14 @@ app.post('/login', (req,res) =>{
     })
 })
 
-    
-app.listen(process.env.PORT_BACKEND,() =>{
-    console.log("rodando servidor na porta ", process.env.PORT_BACKEND)
+// Middleware de erros
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send({ error: 'Something went wrong!' });
 });
+    
+//app.listen(process.env.PORT_BACKEND,() =>{
+//    console.log("rodando servidor na porta ", process.env.PORT_BACKEND)
+//});
+
+module.exports = app;

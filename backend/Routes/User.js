@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router();
 
 //parte de criptografia de senha. So irei utilizar, caso fizer a tela de cadastro
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const SALT_ROUND = 10
 
 
