@@ -14,7 +14,8 @@ import { AuthContext } from '../Context/AuthContext';
 function Login() {
     
     const apiUrl = process.env.REACT_APP_API_URL;
-
+    //const apiUrl = 'http://i6j2bih1fb.execute-api.sa-east-1.amazonaws.com'
+    //const apiUrl = 'https://gra6rl686k.execute-api.sa-east-1.amazonaws.com/production'
     const [data, setData] = useState();
     const [message, setMessage] = useState();
 
@@ -31,13 +32,12 @@ function Login() {
         axios.post(apiUrl+`/login`,data)
         .then((result)=>{ 
             setMessage(result.data);
-            console.log(result.data.token)
             login(result.data.token);
             setTimeout(()=>{
                 setMessage();
                 if (result.data.type==='success'){
                     
-                    navigate('/dashboard')
+                    navigate('/dashboard/home')
                 }
                 
             },3000);

@@ -3,7 +3,7 @@ import { FaPlus, FaSearch } from "react-icons/fa";
 
 function User() {
     return ( 
-    <>
+    <div className="rounded bg-white m-3 p-3">
         <div className="h-10 flex justify-between">
             <div className="text-2xl font-bold">
                 Users
@@ -23,7 +23,7 @@ function User() {
         <div>
             <Outlet/>
         </div>
-    </> );
+    </div> );
 }
 
 export default User;

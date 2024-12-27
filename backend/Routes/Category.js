@@ -8,13 +8,13 @@ const router = express.Router();
 router.post("/add", (req,res) =>{
     const {name, status} = req.body;
 
-    db.query("select id from tb_category where name=? ", [name], (error,result) =>{
+    db.query("select id from TB_CATEGORY where name=? ", [name], (error,result) =>{
 
         if (result){
             
             if (result[0]===undefined){
                 //insert new register in database
-                db.query("insert into tb_category (name,status) values (?,?)", [name,status], (error1, result1)=>{
+                db.query("insert into TB_CATEGORY (name,status) values (?,?)", [name,status], (error1, result1)=>{
                     if (error1) {
                         res.status(500).json({msg: 'Error in insert category'});
                     }else{
@@ -30,7 +30,7 @@ router.post("/add", (req,res) =>{
 });
 
 router.get("/list", (req,res) =>{
-    db.query('select * from tb_category', (err,result)=>{
+    db.query('select * from TB_CATEGORY', (err,result)=>{
         if (err) {
             res.status(500).json({msg: 'Error in insert category'});
         }else{
@@ -41,7 +41,7 @@ router.get("/list", (req,res) =>{
 
 router.delete("/:id", (req,res) =>{
     const {id} = req.params;
-    db.query('delete from tb_category where id=?', [id], (err,result)=>{
+    db.query('delete from TB_CATEGORY where id=?', [id], (err,result)=>{
         if (err) {
             res.status(500).json({msg: 'Error in delete category'});
         }else{
@@ -52,7 +52,7 @@ router.delete("/:id", (req,res) =>{
 
 router.get("/:id", (req,res) =>{
     const {id} = req.params;
-    db.query('select * from tb_category where id=?', [id], (err,result)=>{
+    db.query('select * from TB_CATEGORY where id=?', [id], (err,result)=>{
         if (err) {
             res.status(500).json({msg: 'Error in find specificy category'});
         }else{
@@ -63,7 +63,7 @@ router.get("/:id", (req,res) =>{
 
 router.put("/:id", (req,res) =>{
     const {id,name,status} = req.body;
-    db.query('update tb_category  set name=?, status=? where id=?', [name, status, id], (err,result)=>{
+    db.query('update TB_CATEGORY  set name=?, status=? where id=?', [name, status, id], (err,result)=>{
         if (err) {
             res.status(500).json({msg: 'Error in update specificy category'});
         }else{
@@ -76,7 +76,7 @@ router.put("/status/:id/:status", (req,res) =>{
     const {id,status} = req.params;
     newStatus = status==='ATIVO' ? 'INATIVO' : 'ATIVO'
 
-    db.query('update tb_category  set status=? where id=?', [ newStatus, id], (err,result)=>{
+    db.query('update TB_CATEGORY  set status=? where id=?', [ newStatus, id], (err,result)=>{
         if (err) {
             res.status(500).json({msg: 'Error in update category`s status '});
         }else{

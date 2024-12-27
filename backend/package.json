@@ -1,10 +1,10 @@
 {
   "name": "s",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js",
+    "dev": "nodemon local.js",
     "deploy": "zip -r function.zip .",
     "deploy2": "aws lambda update-function-code --function-name myBackendHttp --zip-file fileb://function.zip"
   },

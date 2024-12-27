@@ -1,21 +1,19 @@
+const express = require ("express");
+const app = express();
+
 const mysql = require("mysql2")
 const db = require('./db/connection.js');
 
 const cors = require("cors");
 
-const express = require ("express");
-const app = express();
-
 const path = require('path');
 require('dotenv').config()
 
-const category = require('./Routes/Category');
-const user = require('./Routes/User');
+const category = require('./Routes/Category.js');
+const user = require('./Routes/User.js');
 const articles = require('./Routes/Articles.js');
 const helpAI = require('./Routes/helpAi.js');
-
-  
-
+const home = require('./Routes/Home.js');
 
 const jwt = require("jsonwebtoken")
 const SECRET = process.env.JWT_SECRET // essa variavel está no env
@@ -35,10 +33,11 @@ app.use('/category', category);
 app.use('/articles', articles);
 app.use('/helpAi', helpAI);
 app.use('/user', user);
+app.use('/home', home);
 
 
-app.get('/hello', (req,res)=>{
-    res.status(200).json({msg: 'retornou'})
+app.get('/', (req,res)=>{
+    res.send({msg: "ok, acessei!", type: 'success'})
 })
 
 //routes from register and login keeping in innitial code
@@ -46,7 +45,7 @@ app.post('/register', (req,res) =>{
     const {name, password} = req.body;
     const datereg = new Date;
 
-    let sql1 = "select id from tb_users where name=?";
+    let sql1 = "select id from TB_USERS where name=?";
     db.query(sql1, [name], (error,result) =>{
         if (error){
             console.log(error)
@@ -70,36 +69,32 @@ app.post('/register', (req,res) =>{
 app.post('/login', (req,res) =>{
     const {name, password} = req.body;
    
-
-    let sql1 = "select id, password from tb_users where name=? ";
+    console.log('Name: ',name)
+    let sql1 = "select id, password from TB_USERS where name=? ";
     db.query(sql1, [name], (error,result) =>{
         if (error){
             console.log(error)
-        }else if (result[0]){
-            bcrypt.compare(password, result[0].password, function(err,resu){
-                if (err) console.log(err);
-                if (resu){
-                    const token= jwt.sign(result[0].id, SECRET);
-                    res.send({msg: "User authenticated!", type :'success', token: token})
-                }else{
-                    res.send({msg: "Verify your password. Try again!", type :'error'})
-                }
-            })
-
-
-           
         }else{
-            res.send({msg: "User not found. Try again!", type :'error'})
+            console.log(result)
+            if (result[0]){
+                
+                bcrypt.compare(password, result[0].password, function(err,resu){
+                    if (err) console.log(err);
+                    if (resu){
+                        const token= jwt.sign(result[0].id, SECRET);
+                        res.send({msg: "User authenticated!", type :'success', token: token})
+                    }else{
+                        res.send({msg: "Verify your password. Try again!", type :'error'})
+                    }
+                })
+               
+            }else{
+                res.send({msg: "User not found. Try again!", type :'error'})
+            }
         }
     })
 })
 
-// Middleware de erros
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send({ error: 'Something went wrong!' });
-});
-    
 //app.listen(process.env.PORT_BACKEND,() =>{
 //    console.log("rodando servidor na porta ", process.env.PORT_BACKEND)
 //});

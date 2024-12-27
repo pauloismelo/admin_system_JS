@@ -15,7 +15,7 @@ function Sidebar() {
         <div className="w-48 bg-slate-800 text-white p-2 fixed h-lvh">
             <h2 className="font-bold mb-8">Menu</h2>
             <ul>
-                <li className="mb-2"><NavLink to="/dashboard">Home</NavLink></li>
+                <li className="mb-2"><NavLink to="/dashboard/home">Home</NavLink></li>
                 <li className="mb-2"><NavLink to="/dashboard/user/list">Users</NavLink></li>
                 <li className="mb-2"><NavLink to="/dashboard/category/list">Categories</NavLink></li>
                 <li className="mb-2"><NavLink to="/dashboard/article/list">Articles</NavLink></li>
