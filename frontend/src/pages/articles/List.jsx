@@ -21,7 +21,7 @@ function List() {
                 }
             )
             .catch((e)=>console.log(e))
-        },3500)
+        },3000)
         
     },[])
 
