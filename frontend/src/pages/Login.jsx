@@ -58,7 +58,7 @@ function Login() {
                         <h2 className=''>Log In</h2>
                         <Input type="text" name="name" title="Login" handleOnChange={handleOnChange}/>
                         <Input type="password" name="password" title="Password" handleOnChange={handleOnChange}/>
-                        <Botton type="submit" type2="danger" value="LOG IN"/>
+                        <Botton type="submit" type2="error" value="LOG IN"/>
                     </form>
                 </div>
             </main>

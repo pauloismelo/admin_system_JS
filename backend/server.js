@@ -69,13 +69,11 @@ app.post('/register', (req,res) =>{
 app.post('/login', (req,res) =>{
     const {name, password} = req.body;
    
-    console.log('Name: ',name)
     let sql1 = "select id, password from TB_USERS where name=? ";
     db.query(sql1, [name], (error,result) =>{
         if (error){
             console.log(error)
         }else{
-            console.log(result)
             if (result[0]){
                 
                 bcrypt.compare(password, result[0].password, function(err,resu){

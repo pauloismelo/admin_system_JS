@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import Message from "../../components/Message";
+import { ToastContainer, toast } from "react-toastify";
 import { useParams, useNavigate } from "react-router-dom";
 import FormArticles from "../../components/Forms/FormArticles";
 
 
 function Edit() {
     const [data, setData] = useState([]);
-    const [message, setMessage] = useState();
     const [buttonAI, setbuttonAI] = useState();
 
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -61,16 +60,12 @@ function Edit() {
         .then((result)=>{
             
             if(result.data.type==='success'){
-                setMessage({
-                    type:result.data.type,
-                    msg: result.data.msg
+                toast.success(result.data.msg, {
+                    theme: process.env.TOAST_THEME,
+                    autoClose: process.env.TOAST_AUTOCLOSE,
+                    onClose: () => navigate('/dashboard/article/list'),
                 });
-                
             }
-            setTimeout(()=>{
-                setMessage();
-                navigate('/dashboard/article/list');
-            },2000)
 
         })
         .catch(e=>console.log())
@@ -78,7 +73,7 @@ function Edit() {
     }
     return ( 
     <>
-        {message ? (<Message type={message.type} msg={message.msg}/>) : ''}
+       <ToastContainer/>
         <FormArticles title={`Edit Article`} handleOnChange={handleOnChange} handleOnChange2={handleOnChange2} handleOnSubmit={handleOnSubmit} options={options} data={data} state={setData} handleAI={handleAI} buttonAI={buttonAI} />
     </> );
 }

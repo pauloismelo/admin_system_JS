@@ -1,27 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FormUsers from '../../components/Forms/FormUsers'
-import Message from '../../components/Message';
 import axios from 'axios';
 
 import { useNavigate } from 'react-router-dom';
 import { validaSenha } from '../../utils/utils';
 
+import {ToastContainer, toast} from 'react-toastify';
+
 function Add() {
-    const [message, setMessage] = useState();
-    const [data, setData] = useState();
+    const [data, setData] = useState([]);
     const [validaPass, setvalidaPass] = useState([false,false,false]);
     const apiUrl = process.env.REACT_APP_API_URL;
 
     const navigate = useNavigate()
 
+    useEffect(()=>{
+        setvalidaPass(validaSenha());
+       //console.log(validaSenha(data.password))
+    },[])
+
+    useEffect(()=>{
+        setvalidaPass(validaSenha(data.password));
+    },[data.password])
+
+
     const handleOnChange = (e)=>{
         setData({...data, [e.target.name]: e.target.value})
-
-        if (data && data.password){
-            const valida = validaSenha(data.password);
-            setvalidaPass(valida);
-        }
-        //validaSenha(e.password.value);
     }
 
     const handleOnSubmit= (e) =>{
@@ -29,20 +33,21 @@ function Add() {
 
         axios.post(apiUrl+`/user/add`, data)
         .then((result)=>{
-                setMessage({type: result.data.type, msg: result.data.msg})
-                if (result.data.type==='success'){
-                    navigate('/dashboard/user/list')
-                }
-            }
-            
-        )
+            toast.success(result.data.msg, {
+                theme: process.env.TOAST_THEME,
+                autoClose: process.env.TOAST_AUTOCLOSE,
+                onClose: () => navigate('/dashboard/user/list'),
+            });
+        }
+)
         .catch(e=>console.log(e))
     }
+        
 
     return ( 
 
         <>
-            {message && <Message type={message.type} msg={message.msg} />}
+            <ToastContainer/>
             <FormUsers title={`New User`} handleOnChange={handleOnChange}  handleOnSubmit={handleOnSubmit} data={data} state={setData} validaPass={validaPass && validaPass} />
         </>
      );

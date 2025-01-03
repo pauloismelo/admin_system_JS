@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import Message from "../../components/Message";
+import { ToastContainer, toast } from "react-toastify";
 import FormCategories from "../../components/Forms/FormCategories";
 import { useParams, useNavigate } from "react-router-dom";
 
 function Edit() {
     const [data, setData] = useState([]);
-    const [message, setMessage] = useState();
 
     const apiUrl = process.env.REACT_APP_API_URL;
     const {id} = useParams();
@@ -31,16 +30,12 @@ function Edit() {
         axios.put(apiUrl+`/category/${id}`, data)
         .then((result)=>{
             if(result.data.type==='success'){
-                setMessage({
-                    type:result.data.type,
-                    msg: result.data.msg
+                toast.success(result.data.msg, {
+                    theme: process.env.TOAST_THEME,
+                    autoClose: process.env.TOAST_AUTOCLOSE,
+                    onClose: () => navigate('/dashboard/category/list'),
                 });
-                
             }
-            setTimeout(()=>{
-                setMessage();
-                navigate('/dashboard/category/list');
-            },2000)
 
         })
         .catch(e=>console.log())
@@ -50,7 +45,7 @@ function Edit() {
 
     return ( 
     <>
-        {message ? (<Message type={message.type} msg={message.msg}/>) : ''}
+        <ToastContainer/>
         <FormCategories title={`Edit Category`} handleOnChange={handleOnChange} handleOnSubmit={handleOnSubmit} options={options} data={data}/>
     </> );
 }

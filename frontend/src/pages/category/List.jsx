@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
-import Message from "../../components/Message";
+import { ToastContainer, toast } from "react-toastify";
 
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -11,7 +11,6 @@ import Botton from "../../components/Botton";
 function List() {
     const apiUrl = process.env.REACT_APP_API_URL;
     const [data, setData] = useState([]);
-    const [message, setMessage] = useState();
 
 
     useEffect(()=>{
@@ -26,15 +25,12 @@ function List() {
     const DeleteReg = (id)=>{
         axios.delete(apiUrl+`/category/${id}`)
         .then((result)=>{
-            setMessage({
-                type:result.data.type,
-                msg:result.data.msg
-            })
+            toast.success(result.data.msg, {
+                theme: process.env.TOAST_THEME,
+                autoClose: process.env.TOAST_AUTOCLOSE,
+                onClose: () => setData(data.filter((value)=>(value.id!==id))),
+            });
 
-            setTimeout(()=>{
-                setMessage();
-                setData(data.filter((value)=>(value.id!==id)))
-            },2000)
         })
         .catch(e=>console.log(e))
     }
@@ -54,7 +50,7 @@ function List() {
    
     return ( 
     <>
-    {message ? (<Message type={message.type} msg={message.msg}/>) : ''}
+    <ToastContainer/>
     <table className="w-full">
         <thead>
             <tr>

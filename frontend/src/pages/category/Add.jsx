@@ -1,12 +1,11 @@
 import {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import FormCategories from "../../components/Forms/FormCategories";
-import Message from '../../components/Message';
+import { ToastContainer, toast } from "react-toastify";
 import axios from 'axios';
 
 function CategoryAdd() {
     const [data, setData] = useState();
-    const [message, setMessage] = useState();
     const apiUrl = process.env.REACT_APP_API_URL;
 
     const navigate = useNavigate();
@@ -19,19 +18,12 @@ function CategoryAdd() {
         e.preventDefault();
         axios.post(apiUrl+`/category/add`, data)
         .then((result) =>{
-            console.log(result)
-            setMessage({
-                type:result.data.type,
-                msg:result.data.msg
-            })
-
-            setTimeout(()=>{
-                setMessage();
-                navigate('/dashboard/category/list');
-            },2000)
             
-
-
+            toast.success(result.data.msg, {
+                theme: process.env.TOAST_THEME,
+                autoClose: process.env.TOAST_AUTOCLOSE,
+                onClose: () => navigate('/dashboard/category/list'),
+            });
         })
         .catch(e=>console.log(e))
     }
@@ -41,7 +33,7 @@ function CategoryAdd() {
 
     return ( 
     <>
-        {message ? (<Message type={message.type} msg={message.msg}/>) : ''}
+        <ToastContainer/>
         <FormCategories title={`New Category`} handleOnChange={handleOnChange} handleOnSubmit={handleOnSubmit} options={options} data={data}/>
     </> );
 }

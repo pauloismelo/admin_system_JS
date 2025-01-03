@@ -3,8 +3,7 @@ import Botton from '../Botton'
 import { FaCheckCircle } from 'react-icons/fa';
 
 function FormCategories({title, handleOnChange, handleOnSubmit, data , validaPass}) {
-    console.log(validaPass)
-    let cor0, cor1, cor2;
+    let cor0, cor1, cor2, status_button, type2;
     if (validaPass[0]){
         cor0='text-green-700 my-2 text-left flex gap-2 align-middle text-xs'
     }else{
@@ -20,6 +19,15 @@ function FormCategories({title, handleOnChange, handleOnSubmit, data , validaPas
     }else{
         cor2='text-gray-500 my-2 text-left flex gap-2 align-middle text-xs'
     }
+
+    if (validaPass[0] && validaPass[1] && validaPass[2]){
+        status_button='';
+        type2='success';
+    }else{
+        status_button='disable';
+        type2='disable';
+    }
+
     return ( 
         <>
         <div className='text-center text-lg font-bold mb-6 text-lime-900'>
@@ -42,7 +50,7 @@ function FormCategories({title, handleOnChange, handleOnSubmit, data , validaPas
                     </div>
                 </div>
                 
-                <Botton type={`submit`} type2={`success`} value={title}/>
+                <Botton type={`submit`} type2={type2} value={title} disabled={status_button}/>
             </form>
         </div>
         

@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import Message from "../../components/Message";
 import { useParams, useNavigate } from "react-router-dom";
 import FormUsers from "../../components/Forms/FormUsers";
 
 import { validaSenha } from '../../utils/utils';
+import { ToastContainer, toast } from "react-toastify";
 
 
 function Edit() {
     const [data, setData] = useState([]);
-    const [message, setMessage] = useState();
     const [validaPass, setvalidaPass] = useState([false,false,false]);
 
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -32,13 +31,13 @@ function Edit() {
         .catch(e=>console.log(e))
     },[])
 
+    useEffect(()=>{
+        const valida = validaSenha(data.password);
+        setvalidaPass(valida);
+    },[data.password])
+
     const handleOnChange = (e) =>{
         setData({...data, [e.target.name]: e.target.value});
-
-        if (data && data.password){
-            const valida = validaSenha(data.password);
-            setvalidaPass(valida);
-        }
     }
 
    
@@ -50,16 +49,12 @@ function Edit() {
         .then((result)=>{
             
             if(result.data.type==='success'){
-                setMessage({
-                    type:result.data.type,
-                    msg: result.data.msg
-                });
-                
+                toast.success(result.data.msg, {
+                    theme: process.env.TOAST_THEME,
+                    autoClose: process.env.TOAST_AUTOCLOSE,
+                    onClose: ()=> navigate('/dashboard/user/list'), 
+                });   
             }
-            setTimeout(()=>{
-                setMessage();
-                navigate('/dashboard/user/list');
-            },2000)
 
         })
         .catch(e=>console.log())
@@ -67,8 +62,7 @@ function Edit() {
     }
     return ( 
     <>
-        {message ? (<Message type={message.type} msg={message.msg}/>) : ''}
-        
+        <ToastContainer/>
         <FormUsers title={`Edit User`} handleOnChange={handleOnChange} handleOnSubmit={handleOnSubmit}  data={data} state={setData} validaPass={validaPass && validaPass}/>
     </> );
 }

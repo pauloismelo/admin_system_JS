@@ -2,11 +2,12 @@ import { useState } from "react";
 import FormArticles from "../../components/Forms/FormArticles";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Message from "../../components/Message";
+import { ToastContainer, toast } from "react-toastify";
+
 
 function Add() {
     const [data, setData] = useState();
-    const [message, setMessage] = useState();
+
     const [buttonAI, setbuttonAI] = useState();
     const navigate = useNavigate();
 
@@ -43,7 +44,7 @@ function Add() {
         e.preventDefault();
 
         const token = localStorage.getItem('authToken'); //user token
-        const response = await axios.post(apiUrl+`/articles/add`, data, {
+        const result = await axios.post(apiUrl+`/articles/add`, data, {
             headers: {
                 'Content-Type': 'application/json',  // Definindo que estamos enviando JSON
                 'Authorization': `Bearer ${token}`,  // Enviando o token no header Authorization
@@ -51,14 +52,11 @@ function Add() {
             });
         
         try{
-            setMessage({type: response.data.type, msg:response.data.msg});
-
-            setTimeout(()=>{
-                //clear to message
-                setMessage();
-                //redirect to articles'list
-                navigate('/dashboard/article/list')
-            },3000)
+            toast.success(result.data.msg, {
+                theme: process.env.TOAST_THEME,
+                autoClose: process.env.TOAST_AUTOCLOSE,
+                onClose: () => navigate('/dashboard/article/list'),
+            });
         }catch(e){
             console.log(e)
         }
@@ -68,8 +66,8 @@ function Add() {
 
     return ( 
         <>
-        {message && <Message type={message.type} msg={message.msg} />}
-         <FormArticles title={`New Article`} handleOnChange={handleOnChange} handleOnChange2={handleOnChange2} handleOnSubmit={handleOnSubmit} options={options} data={data} state={setData} handleAI={handleAI} buttonAI={buttonAI}/>
+        <ToastContainer/>
+        <FormArticles title={`New Article`} handleOnChange={handleOnChange} handleOnChange2={handleOnChange2} handleOnSubmit={handleOnSubmit} options={options} data={data} state={setData} handleAI={handleAI} buttonAI={buttonAI}/>
         </>
      );
 }
