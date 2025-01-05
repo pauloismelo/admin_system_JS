@@ -1,6 +1,9 @@
-Project to create my own CMS to manager content of websites developed in JS or PHP. 
+<h1>Admin System JS</h1>
+<h2>CMS - content's management</h2>
 
-This project use Node.js in the Backend and React.js in FrontEnd
+<p>Project to create my own CMS to manager content of websites developed in JS or PHP. </p>
+
+<p>This project use Node.js in the Backend and React.js in FrontEnd</p>
 
 #some project's dependencies:
 -Backend
