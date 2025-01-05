@@ -5,7 +5,7 @@ import Message from '../components/Message';
 
 
 import { useContext, useState } from 'react';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 
 import { AuthContext } from '../Context/AuthContext';
@@ -60,6 +60,7 @@ function Login() {
                         <Input type="password" name="password" title="Password" handleOnChange={handleOnChange}/>
                         <Botton type="submit" type2="error" value="LOG IN"/>
                     </form>
+                    <div className='m-10 p-10 text-gray-400'>Don't have a account? <Link className='text-blue-950' to="/register">Create account</Link> </div>
                 </div>
             </main>
             <div className='flex-1 bg-slate-800'></div>

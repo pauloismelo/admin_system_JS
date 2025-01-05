@@ -2,10 +2,7 @@ import axios from 'axios';
 import Botton from '../components/Botton';
 import Input from '../components/Input';
 
-import {useNavigate} from 'react-router-dom';
-
-
-
+import {Link, useNavigate} from 'react-router-dom';
 
 import { useState } from 'react';
 import Message from '../components/Message';
@@ -43,20 +40,21 @@ function Register() {
     }
     console.log('Msg: ',message)
     return ( 
-        <div className='max-h-full'>
-            <div className='h-20 bg-slate-800'></div>
-            <main className='text-center align-middle h-80'>
-            <div className="login">
+        <div className='h-screen flex flex-col'>
+            <div className='flex-1 bg-slate-800'></div>
+            <main className='flex-auto text-center align-middle'>
+            <div className="mt-10 mb-10 ml-80 mr-80 border-2 p-10">
                 <form onSubmit={handleSubmit}>
                     {message ? <Message type={message.type} msg={message.msg}/> : ''}
                     <h1 className='text-slate-800'>New User</h1>
                     <Input type="text" name="name" title="Login" handleOnChange={handleOnChange}/>
                     <Input type="password" name="password" title="Password" handleOnChange={handleOnChange}/>
-                    <Botton type="submit" type2="danger" value="REGISTER"/>
+                    <Botton type="submit" type2="success" value="REGISTER"/>
                 </form>
+                <div className='m-10 p-10 text-gray-400'>Do you have a account? <Link className='text-blue-950' to="/login">Sign In</Link> </div>
             </div>
         </main>
-        <div className='h-20 bg-slate-800'></div>
+        <div className='flex-1 bg-slate-800'></div>
         </div>
      );
 }
